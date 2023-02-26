@@ -21,6 +21,11 @@ export class Vector2 {
         this.y += v.y;
     }
 
+    sub(v: Vector2JSON) {
+        this.x -= v.x;
+        this.y -= v.y;
+    }
+
     normalize() {
         const mag = this.mag();
         this.x /= mag;
@@ -29,6 +34,10 @@ export class Vector2 {
 
     dot(v: Vector2JSON) {
         return this.x * v.x + this.y * v.y;
+    }
+
+    clone(): Vector2 {
+        return new Vector2(this.x, this.y);
     }
 
     static dot(v1: Vector2JSON, v2: Vector2JSON): number {

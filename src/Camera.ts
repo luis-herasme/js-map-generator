@@ -3,7 +3,7 @@ import { mouse } from './Mouse';
 import { Vector2, Vector2JSON } from './Vector';
 
 export class Camera {
-    private stage: Container;
+    public stage: Container;
     private velocity = new Vector2();
     private acceleration = new Vector2();
     private velocityWheel: number = 0;

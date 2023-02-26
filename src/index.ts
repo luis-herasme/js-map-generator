@@ -5,7 +5,7 @@ import { NoiseGrid } from './MapGenerator';
 import { mouse } from './Mouse';
 import { Vector2 } from './Vector';
 
-const MOVEMENT_SPEEED = 20;
+const MOVEMENT_SPEEED = 10;
 
 const app = new PIXI.Application({ resizeTo: window });
 document.body.appendChild(app.view);
@@ -102,11 +102,19 @@ app.ticker.add((delta) => {
 document.body.addEventListener('mousemove', (event) => {
     const { clientX, clientY } = event;
 
+    const mouseOld = mouse.positionScreen.clone();
+
     mouse.position.x = (clientX - app.stage.x) / app.stage.scale.x;
     mouse.position.y = (clientY - app.stage.y) / app.stage.scale.y;
 
     mouse.positionScreen.x = clientX;
     mouse.positionScreen.y = clientY;
+
+    if (mouse.isDown) {
+        const mouseDelta = Vector2.sub(mouse.positionScreen.clone(), mouseOld);
+        camera.stage.x += mouseDelta.x;
+        camera.stage.y += mouseDelta.y;
+    }
 });
 
 document.body.addEventListener('mousedown', (event) => {
